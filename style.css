@@ -1,10 +1,27 @@
+:root {
+	/* these variables should have prefixes like colour- and font- but meh */
+
+	/* accents */
+	--primary: #db6958;
+	--secondary: #5c78ae;
+	--tertiary: #64ba9f;
+	
+	--text: #000; /* text colour */
+	--section-bg: #fff3; /* background of sections */
+	--border: #fff; /* borders of sections */
+	--border-width: 0.2em; /* width of borders */
+
+	--copy: "Atkinson Hyperlegible", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	--code: "JetBrains Mono", "Courier New", Courier, monospace;
+}
+
 html, body {
 	margin: 0;
 	padding: 0;
 }
 
 body {
-	font-family: "Atkinson Hyperlegible", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-family: var(--copy);
 }
 
 aside#background {
@@ -15,8 +32,9 @@ aside#background {
 	width: 100vw;
 	height: 100vh;
 	/* background */
-	background: #db6958;
-	background: linear-gradient(135deg, #db6958 0%, #5c78ae 50%, #64ba9f 100%); 
+	background: var(--primary);
+	background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--tertiary) 100%); 
+	color: var(--text);
 	z-index: -1;
 	/* filters */
 	filter: brightness(1.5);
@@ -25,6 +43,12 @@ aside#background {
 
 /* header */
 header {
+	padding: 1em;
+	margin: 1em;
+
+	background-color: var(--section-bg);
+	border: var(--border-width) solid var(--border);
+
 	text-align: center;
 }
 
@@ -49,4 +73,72 @@ header p#author::before, header p#author::after {
 header p.subtitle span.up-number {
 	font-size: 0.8em;
 	font-family: monospace;
+}
+
+/* articles, sections */
+article {
+	/* let's give css grid a go 👀 */
+	display: grid;
+	
+	grid-template-areas: "one two three"
+						 "four five three"
+						 "six seven three";
+			
+
+	/*
+		not sure if this is being used correctly here,
+		but it's cool
+	 */
+	counter-reset: heading;
+}
+
+article > section {
+	padding: 1em;
+	margin: 1em;
+	
+	background-color: var(--section-bg);
+	border: var(--border-width) solid var(--border);
+}
+
+/* section headings */
+article > section h2 {
+	margin: 0;
+	border-bottom: var(--border-width) solid var(--border);
+}
+
+article > section h2:before {
+	display: inline-block;
+
+	content: counter(heading);
+	counter-increment: heading;
+
+	/* please ignore the hacks below here */
+	font-family: var(--code);
+	font-size: 4em;
+
+	margin-right: -2rem;
+	margin-bottom: -2rem;
+
+	opacity: 0.5;
+
+	z-index: 1;
+	/* you can look again now, rich */
+}
+
+/* odd sections */
+article > section:nth-child(odd) h2 {
+	border-color: var(--secondary);
+}
+
+article > section:nth-child(odd) h2:before {
+	color: var(--secondary);
+}
+
+/* even sections */
+article > section:nth-child(even) h2 {
+	border-color: var(--tertiary);
+}
+
+article > section:nth-child(even) h2:before {
+	color: var(--tertiary);
 }

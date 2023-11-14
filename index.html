@@ -18,61 +18,131 @@
 		<!-- separate element to apply filters and etc -->
 	</aside>
 
-	<header>
-		<h1 id="title">Designing an Ethical Engine for a Self-Driving Car</h1>
-		<p class="subtitle" id="module">
-			<span class="module-id">M33193</span> <span class="module-name">Core Computing Concepts</span>&mdash;<span class="coursework">CW Item 1</span>
-		</p>
-		<p class="subtitle" id="author">
-			<span class="name">Thomas Robinson</span>
-			<span class="up-number">up2194485</span>
-		</p>
-	</header>
-
 	<main>
-		<section>
-			<h2>Creating the Graph</h1>
-			<!--
-				image of the town, then image of simple graph
-				this should include the distance weightings
-			 -->
-		</section>
+		<header>
+			<h1 id="title">Designing an Ethical Engine for a Self-Driving Car</h1>
+			<p class="subtitle" id="module">
+				<span class="module-id">M33193</span> <span class="module-name">Core Computing Concepts</span>&mdash;<span class="coursework">CW Item 1</span>
+			</p>
+			<p class="subtitle" id="author">
+				<span class="name">Thomas Robinson</span>
+				<span class="up-number">up2194485</span>
+			</p>
+		</header>
+		<article>
 
-		<section>
-			<h2>The Fastest Route</h1>
-			<!-- 
-				include psuedocode for dijkstra's or a* algorithm
-				then show example of the fastest route
-			-->
-		</section>
+			<section style="grid-area: one">
+				<h2>Introduction</h2>
+				<p>
+					The aim of this poster is to demonstrate the process of designing an 'ethical engine' for a self driving car,
+					utilising the concepts of graph theory, route finding algorithms, and applying ethical decision making to risk analysis.
+				</p>
+			</section>
 
-		<section>
-			<h2>Risk<h2>
-			<!-- 
-				This is where we add in risk analysis
-				How do we calculate the risk?
-				Show the least risky route
-			-->
-		</section>
+			<section style="grid-area: two">
+				<h2>Creating the Graph</h2>
+				<!--
+					image of the town, then image of simple graph
+					this should include the distance weightings
+				-->
 
-		<section>
-			<h2>Combining Risk &amp; Speed</h2>
-			<!-- 
-				How do we combine the two?
-				We need to find a way to combine the two, so that we can find the best route
-				How much risk are we willing to take to get to our destination faster?
-				How much time are we willing to spend to get to our destination safer?
-			-->
-		</section>
+				<p>
+					The first step to creating the 'engine,' is to convert the layout of the town into a graph.
+				</p>
+				<p>
+					This is achieved by creating a node for each intersection, and connecting them with edges that represent the roads between them.
+				</p>
+				<p>
+					Each edge is weighted according to the distance between the two nodes it connects.
+					This was measured by calculating the distance between the two nodes in pixels. It was assumed that the image of the map was to scale.
+				</p>
+			</section>
 
-		<section>
-			<h2>Testing on a New Town</h2>
-			<!-- 
-				We need to test our algorithm on a new town
-				What is the best route taking into account risk and speed?
-				We can demonstrate the aforementioned suggestions here
-			 -->
-		</section>
+			<section style="grid-area: three">
+				<h2>The Fastest Route</h2>
+				<!-- 
+					include psuedocode for dijkstra's or a* algorithm
+					then show example of the fastest route
+				-->
+				<p>
+					To calculate the fastest route, I decided to use Dijkstra's algorithm.
+					This is a pathfinding algorithm that finds the shortest path between two nodes in a graph, and is simple enough to understand and work through by hand.
+				</p>
+
+				<p>
+					We will assume that we will travel at a constant speed throughout, and that we should not go back on ourselves.
+				</p>
+
+				<h3>Explaining Dijkstra's</h3>
+				<ol>
+					<li>
+						First, we assign a tentative distance to each node in the graph. This starts at 0 for the starting node, and infinity for all other nodes.
+					</li>
+					<li>
+						Then, we select the node with the lowest tentative distance, and calculate the distance to each of its neighbours.
+					</li>
+					<li>
+						If the distance to a neighbour is less than its current tentative distance, we update the tentative distance to the new, lower value.
+					</li>
+					<li>
+						We then repeat steps 2 and 3 until we have visited all nodes in the graph.
+					</li>
+					<li>
+						Finally, we can trace back through the graph from the destination node, following the path of lowest tentative distance, to find the shortest path.
+					</li>
+				</ol>
+
+				<h3>The Fastest Route</h3>
+				<p>
+					Using the steps set out above, we can calculate the fastest route from the starting node to the destination node.
+					In this case, the fastest route...
+					<!-- todo: calculate the fastest route -->
+				</p>
+			</section>
+
+			<section style="grid-area: four">
+				<h2>Risk</h2>
+				<!-- 
+					This is where we add in risk analysis
+					How do we calculate the risk?
+					Show the least risky route
+				-->
+
+				<p>
+					To calculate the risk of a route, we will need to assign a risk value to each edge in the graph.
+					In this case, the map of the town is colour coded to show the risk of an area: red represents a busy area, where there is a high risk of an accident, and green represents a quiet area, where there is a low risk of an accident. Blue represents an area of medium risk.
+				</p>
+
+				<p>
+					There are many considerations to take into account when deciding how to assign a risk value to each edge:
+				</p>
+
+				<ul>
+					<li>I have chosen to take the utilitarian approach of maximising the total happiness of the passengers and pedestrians when assigning risk values.</li>
+					<li>Each colour recieves a value, i.e: red = 3, blue = 2, green = 1. If a node is on the border of two colours, the highest risk value will be used, to maximise the safetey (and therefore happiness) of both the passengers and pedestrians.</li>
+				</ul>
+
+			</section>
+
+			<section style="grid-area: five">
+				<h2>Combining Risk &amp; Speed</h2>
+				<!-- 
+					How do we combine the two?
+					We need to find a way to combine the two, so that we can find the best route
+					How much risk are we willing to take to get to our destination faster?
+					How much time are we willing to spend to get to our destination safer?
+				-->
+			</section>
+
+			<section style="grid-area: six">
+				<h2>Testing on a New Town</h2>
+				<!-- 
+					We need to test our algorithm on a new town
+					What is the best route taking into account risk and speed?
+					We can demonstrate the aforementioned suggestions here
+				-->
+			</section>
+		</article>
 	</main>
 </body>
 </html>
