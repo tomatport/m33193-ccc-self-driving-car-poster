@@ -51,10 +51,12 @@
 				</p>
 				<p>
 					This is achieved by creating a node for each intersection, and connecting them with edges that represent the roads between them.
+					In this poster, the words 'node' and 'vertex' are used interchangeably, as are 'edge' and 'road.'
 				</p>
 				<p>
-					Each edge is weighted according to the distance between the two nodes it connects.
-					This was measured by calculating the distance between the two nodes in pixels. It was assumed that the image of the map was to scale.
+					Each edge recieves a weight, which represents the distance of the road it represents.
+					It was assumed that the map of the town was to scale, so the distances were measured in an image editor, in pixels.
+					As long as a consistant scale is used, the distances can be measured in any unit, such as metres or miles.
 				</p>
 			</section>
 
@@ -65,43 +67,24 @@
 					then show example of the fastest route
 				-->
 				<p>
-					To calculate the fastest route, I decided to use Dijkstra's algorithm.
-					This is a pathfinding algorithm that finds the shortest path between two nodes in a graph, and is simple enough to understand and work through by hand.
+					To calculate the fastest route, I decided to use the A* algorithm, a more efficient version of Dijkstra's algorithm.
+					This was chosen for its popularity, efficiency, and ease of implementation and explanation. While Dijkstra's algorithm requires us to calculate the distance from the start node to every other node in the graph, A* allows us to calculate the distance to the destination node only. We use a heuristic function to estimate the distance from the current node to the destination node, and use this to prioritise the nodes we visit. This means that we will only visit nodes that are likely to be on the fastest route.
 				</p>
 
 				<p>
-					We will assume that we will travel at a constant speed throughout, and that we should not go back on ourselves.
+					We will assume that we will travel at a constant speed throughout, and that we should not go back on ourselves. This means that the fastest route will be the one with the lowest total distance. A more real-world implementation would take into account more factors, such as the speed limit of each road, however this is beyond the scope of this work.
 				</p>
 
-				<h3>Explaining Dijkstra's</h3>
+				<h3>Applying A*</h3>
 				<ol>
 					<li>
-						First, we assign a tentative distance to each node in the graph. This starts at 0 for the starting node, and infinity for all other nodes.
-					</li>
-					<li>
-						Then, we select the node with the lowest tentative distance, and calculate the distance to each of its neighbours.
-					</li>
-					<li>
-						If the distance to a neighbour is less than its current tentative distance, we update the tentative distance to the new, lower value.
-					</li>
-					<li>
-						We then repeat steps 2 and 3 until we have visited all nodes in the graph.
-					</li>
-					<li>
-						Finally, we can trace back through the graph from the destination node, following the path of lowest tentative distance, to find the shortest path.
+						<!-- a slideshow of images showing the steps, in diagram and table form - with captions -->
 					</li>
 				</ol>
-
-				<h3>The Fastest Route</h3>
-				<p>
-					Using the steps set out above, we can calculate the fastest route from the starting node to the destination node.
-					In this case, the fastest route...
-					<!-- todo: calculate the fastest route -->
-				</p>
 			</section>
 
 			<section style="grid-area: four">
-				<h2>Risk</h2>
+				<h2>Calculating Risk</h2>
 				<!-- 
 					This is where we add in risk analysis
 					How do we calculate the risk?
@@ -109,38 +92,64 @@
 				-->
 
 				<p>
-					To calculate the risk of a route, we will need to assign a risk value to each edge in the graph.
-					In this case, the map of the town is colour coded to show the risk of an area: red represents a busy area, where there is a high risk of an accident, and green represents a quiet area, where there is a low risk of an accident. Blue represents an area of medium risk.
+					To be able to factor in the risk of a route, we must first decide how risk is calculated. The town is split into differing areas of busyness, which will be used as the basis for calculating risk. We will assume that the busier and area is, the more likely it is that an accident will take place. The busyness of the areas on the map are represented by colours, with red being the busiest, blue being inbetween, and green being the least busy. 
 				</p>
 
 				<p>
-					There are many considerations to take into account when deciding how to assign a risk value to each edge:
+					Since roads can border multiple areas of differing busyness, we must decide how to assign a risk value to each road. In this case, I took the utilitarianist approach of considering the consequences should an accident take place above all else. To maximise the safety of the passengers and pedestrians, we must take the risk of the most dangerous area that the road borders. For example, if a road has a red area on one side, and a green area on the other, the risk of the road will be taken as the risk of the red area.
 				</p>
 
-				<ul>
-					<li>I have chosen to take the utilitarian approach of maximising the total happiness of the passengers and pedestrians when assigning risk values.</li>
-					<li>Each colour recieves a value, i.e: red = 3, blue = 2, green = 1. If a node is on the border of two colours, the highest risk value will be used, to maximise the safetey (and therefore happiness) of both the passengers and pedestrians.</li>
-				</ul>
+				<p>
+					Other ethical principles, such as deontology, are not well-suited to the task of calculating risk in the scenario of a self-diving car, as they do not take into account the consequences of an action, and instead focus on the action itself. The car is unable to make moral judgements that would be required to take other approaches, such as whether it is right to kill a pedestrian to save the passengers. Defining deontological rules for the car to follow is infeasible, as it would be impossible to account for every possible scenario, and the ethics of every situation are inherently subjective. A utilitarianist approach is more suited to the task, as it focuses on the overall consequences of an action, and is therefore a more objective method of calculating risk.
+				</p>
 
+				<p>
+					Alternative approaches to calculating risk could be to take the average risk of the areas bordering the road, or to assume the car is travelling on one side of the road and take the risk of that area. These approaches do not align with the utilitarianist approach, as they do not maximise the safety of the passengers and pedestrians.
+				</p>
+
+				<p>
+					Since our A* algorithm can only take into account one factor for an edge, we must find a way to combine the two variables of distance and risk into one.
+
+					To achive this, we can convert the risk of each road into a numerical value, to use as a multiplier in the graph. The weight of each edge (road) on the graph is multiplied by the risk of the road, to give a new weight that takes into account both distance and risk. This new weight is then used by the A* algorithm to calculate the route.
+
+					For example, if we assigned the risk values of 1, 2, and 3 to the green, blue, and red areas respectively, a road that borders a red area would have a risk value of 3. This would then be multiplied by the distance of the road, to give a new weight that takes into account both distance and risk. If the road was 100 pixels long, the new weight would be 300. This makes the road less desirable to the algorithm, as it now appears to be 3 times longer than it actually is. This means that the algorithm will prioritise roads that are less risky, and therefore safer.
+
+				<p>
+					The value of these risk multipliers can be adjusted to prioritise risk over distance, or vice versa. For example, an emergency service vehicle would prioritise speed over safety, and therefore the risk multipliers would be lowered to prioritise distance. Other vehicles, such as a lorry carrying hazardous materials, or a coach full of passengers, would prioritise safety over speed, and therefore the risk multipliers would be increased to prioritise risk.
+					In each case, the utilitarianist approach is still adhered to, as the risk multipliers are adjusted to balance the best interests of the passengers and pedestrians.
+				</p>
 			</section>
 
 			<section style="grid-area: five">
-				<h2>Combining Risk &amp; Speed</h2>
-				<!-- 
-					How do we combine the two?
-					We need to find a way to combine the two, so that we can find the best route
-					How much risk are we willing to take to get to our destination faster?
-					How much time are we willing to spend to get to our destination safer?
-				-->
+				<h2>The Optimal Route</h2>
+				<p>
+					Now that we have a method of combining distance and risk into one value, we can use this to calculate the optimal route, using the same A* algorithm as previous.
+				</p>
+
+				<!-- TODO: what are appropriate risk multipliers? -->
+				<!-- maybe we could have an interactive demo with a slider to adjust the risk multipliers? -->
+				<p>
+					In this example, the risk multipliers were set to 1, 1.5, and 2 for the green, blue, and red areas respectively. This means that the risk of a road is multiplied by 2 if it borders a red area, 1.5 if it borders a blue area, and 1 if it borders a green area. This was found to be a good balance between speed and safety. The risk multipliers can be adjusted to prioritise speed or safety, as discussed in the previous section.
+				</p>
 			</section>
 
 			<section style="grid-area: six">
-				<h2>Testing on a New Town</h2>
+				<h2>Testing on New Towns</h2>
 				<!-- 
 					We need to test our algorithm on a new town
-					What is the best route taking into account risk and speed?
-					We can demonstrate the aforementioned suggestions here
 				-->
+
+				<p>
+					Now that the algorithm has been tested on the initial town, we can ensure its generalisability by testing it on a new town.
+				</p>
+
+				<p>
+					The steps of creating the graph, calculating the fastest route, and calculating the optimal route are repeated for Town 2.
+				</p>
+
+				<p>
+					As previously, the route calculated takes into account the distance and risk of each road, and the risk multipliers can be adjusted to prioritise speed or safety.
+				</p>
 			</section>
 		</article>
 	</main>
