@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cytoscape.js Test</title>
+
+	<style>
+		#cy {
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	
+	<main id="cy"></main>
+
+	<script src="town.js"></script>
+	<script src="style.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.27.0/cytoscape.min.js" integrity="sha512-ZNCw/dHSJygOg60ih5fI0f2RKqa8EeVm2ivm3PcrD6SEv2WzK8VJoe5IxS4QzvLcaSIQeaxgZMRCW01QlVJTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script>
+		let c = cytoscape({
+			container: document.getElementById('cy'),
+			elements: townA.elements,
+			layout: { name: 'preset' },
+			data: townA.data,
+			style: style[0].style,
+
+			zoom: 1,
+			pan: { x: 0, y: 0 }
+		});
+
+		// loop through every node
+		for(const node of c.nodes()) {
+			console.log(node.data());
+			console.log(node.connectedEdges());
+		}
+	</script>
+</body>
+</html>
