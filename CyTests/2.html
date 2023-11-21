@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cytoscape.js Test</title>
+
+	<style>
+		#cy {
+			width: 100vw;
+			height: 100vh;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<h2>a* test</h2>
+
+	<main id="cy"></main>
+
+	<script src="town.js"></script>
+	<script src="style.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.27.0/cytoscape.min.js" integrity="sha512-ZNCw/dHSJygOg60ih5fI0f2RKqa8EeVm2ivm3PcrD6SEv2WzK8VJoe5IxS4QzvLcaSIQeaxgZMRCW01QlVJTZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script>
+		let c = cytoscape({
+			container: document.getElementById('cy'),
+			elements: townA.elements,
+			layout: { name: 'preset' },
+			data: townA.data,
+			style: style[0].style,
+
+			zoom: 1,
+			pan: { x: 0, y: 0 }
+		});
+
+
+		for(const node of c.nodes()) {
+			node.data("g", Infinity); // g = distance from start
+			node.data("f", Infinity); // f = g + h (heuristic = straight-line distance to end)
+			node.data("parent", null);
+
+		}
+
+		// set start node
+		let start = c.nodes().filter(node => node.data("name") == "Start")[0];
+		start.data("g", 0);
+		start.data("f", 0);
+	
+		// set end node
+		let end = c.nodes().filter(node => node.data("name") == "End")[0];
+
+		// set start node as current node
+		let current = start;
+		
+		let visited = [];
+		let unvisited = c.nodes().filter(node => node != current);
+
+		// loop until end node is reached
+		while (current != end) {
+			// get all neighbours of current node
+			let neighbours = current.neighborhood();
+			
+			console.log(neighbours);
+			
+			// loop through neighbours that are edges (not nodes)
+			for(const neighbour of neighbours) {
+				if(neighbour.isEdge()) {
+					// get the other node of the edge
+					let other = neighbour.connectedNodes().filter(node => node != current)[0];
+					
+					// get edge weight
+					let weight = neighbour.data("Weight");
+
+					// colour the edge to show we've looked down it
+					neighbour.style("line-color", "red");
+					
+					// calculate g value of other node
+					let g = current.data("g") + weight;
+					other.data("g", g);
+
+					// calculate h value of other node
+					// this is the straight-line distance from the other node to the end node (if the graph is moved about then this will be wrong but oh well)
+					let h = Math.sqrt(Math.pow(other.position("x") - end.position("x"), 2) + Math.pow(other.position("y") - end.position("y"), 2));
+					other.data("h", h);
+
+					// calculate f value of other node
+					let f = g + other.data("h");
+					other.data("f", f);
+
+					// colour the other node to show we've looked at it
+					other.style("background-color", "red");
+
+					// console.log(`${other.data("name")} - g: ${g} - h: ${h} - f: ${f}`);
+
+					// set current node as parent of other node
+					other.data("parent", current);
+
+					// set current node as visited
+					visited.push(current);
+					// remove current node from unvisited
+					unvisited = unvisited.filter(node => node != current);
+				}
+			}
+
+			console.log(visited);
+			console.log(unvisited);
+
+			current = end;
+		}
+
+
+		// loop through every node
+		// let i = 0;
+		// for(const node of c.nodes()) {
+		// 	console.log(node.data());
+		// 	console.log();
+
+		// 	window.setTimeout(function() {
+		// 		node.style("background-color", "red");
+			
+		// 		for(const edge of node.connectedEdges()) {
+		// 			console.log(edge.data());
+		// 			edge.style("line-color", "red");
+		// 		}
+		// 	}, 1000*i);
+
+
+			
+		// 	i++;
+		// }
+	</script>
+</body>
+</html>

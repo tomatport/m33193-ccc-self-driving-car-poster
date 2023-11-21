@@ -16,7 +16,7 @@
 	</style>
 </head>
 <body>
-	<h1>animation test</h1>
+	<h1>layout animation tests</h1>
 
 	
 	<main id="cy"></main>
@@ -34,28 +34,30 @@
 			data: townA.data,
 			style: style[0].style,
 
+			animate: true,
+  			animationDuration: 500,
+
 			zoom: 1,
 			pan: { x: 0, y: 0 }
 		});
 
 
-		// loop through every node
-		let i = 0;
-		for(const node of c.nodes()) {
-			console.log(node.data());
-			console.log();
+		let layouts = [
+			"preset",
+			"random",
+			"grid",
+			"circle",
+			"concentric",
+			"breadthfirst",
+			"cose"
+		]
 
-			window.setTimeout(function() {
-				node.style("background-color", "red");
-			
-				for(const edge of node.connectedEdges()) {
-					console.log(edge.data());
-					edge.style("line-color", "red");
-				}
-			}, 1000*i);
-			
-			i++;
+		function newLayout() {
+			let layout = layouts[Math.floor(Math.random() * layouts.length)];
+			c.layout({ name: layout }).run();
 		}
+
+		window.setInterval(newLayout, 1000);
 	</script>
 </body>
 </html>
