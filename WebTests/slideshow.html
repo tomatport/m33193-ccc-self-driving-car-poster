@@ -1,0 +1,181 @@
+<figure>
+	<ul>
+		<li class="frame" data-frame="0">
+			<img src="https://placehold.co/500x500/red/white" alt="placeholder">
+			
+			<table>
+				<thead>
+					<tr>
+						<th>Node</th>
+						<th>g</th>
+						<th>h</th>
+						<th>f=g+h</th>
+						<th>parent</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Start</td>
+						<td>0</td>
+						<td>0</td>
+						<td>0</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>A</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>B</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>...</td>
+					</tr>
+					<tr>
+						<td>End</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+
+		<li class="frame" data-frame="1">
+			<img src="https://placehold.co/500x500/green/white" alt="placeholder">
+			
+			<table>
+				<thead>
+					<tr>
+						<th>Node</th>
+						<th>g</th>
+						<th>h</th>
+						<th>f=g+h</th>
+						<th>parent</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Start</td>
+						<td>123</td>
+						<td>123</td>
+						<td>123</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>A</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>B</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>...</td>
+					</tr>
+					<tr>
+						<td>End</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+
+		<li class="frame" data-frame="1">
+			<img src="https://placehold.co/500x500/blue/white" alt="placeholder">
+			
+			<table>
+				<thead>
+					<tr>
+						<th>Node</th>
+						<th>g</th>
+						<th>h</th>
+						<th>f=g+h</th>
+						<th>parent</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Start</td>
+						<td>123</td>
+						<td>123</td>
+						<td>123</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>A</td>
+						<td>123</td>
+						<td>123</td>
+						<td>123</td>
+						<td>Start</td>
+					</tr>
+					<tr>
+						<td>B</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+					<tr>
+						<td>...</td>
+					</tr>
+					<tr>
+						<td>End</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>Infinity</td>
+						<td>null</td>
+					</tr>
+				</tbody>
+			</table>
+		</li>
+	</ul>
+</figure>
+
+<style>
+	figure ul li {
+		display: flex;
+	}
+
+	figure ul li img {
+		flex: 1;
+	}
+
+	figure ul li table {
+		flex: 1;
+	}
+</style>
+
+<script>
+	document.querySelectorAll("li.frame").forEach(frame => {
+		frame.style.display = "none";
+	});
+
+	let currentFrame = 0;
+	let frames = document.querySelectorAll("li.frame");
+
+	function nextFrame() {
+		frames[currentFrame].style.display = "none";
+		currentFrame = (currentFrame + 1) % frames.length;
+		frames[currentFrame].style.display = "flex";
+	}
+
+	window.setInterval(nextFrame, 1000);
+</script>
