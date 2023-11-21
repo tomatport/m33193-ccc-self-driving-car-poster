@@ -150,3 +150,35 @@ article > section:nth-child(even) h2 {
 article > section:nth-child(even) h2:before {
 	color: var(--tertiary);
 }
+
+/* ordered lists */
+article ol {
+	counter-reset: list;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}	
+
+article ol > li::before {
+  display: inline-block;
+  content: counter(list);
+  counter-increment: list;
+  font-size: 2em;
+  font-family: var(--code);
+  opacity: 0.5;
+  z-index: -1;
+  font-weight: bold;
+  filter: brightness(0.4);
+}
+
+article ol > li:hover::before {
+	filter: brightness(1);
+}
+
+article ol > li:nth-child(odd)::before {
+	color: var(--secondary);
+}
+
+article ol > li:nth-child(even)::before {
+	color: var(--tertiary);
+}
