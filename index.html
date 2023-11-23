@@ -45,29 +45,28 @@
 					image of the town, then image of simple graph
 					this should include the distance weightings
 				-->
+				<div style="display: flex;">
+					<ol style="flex: 2">
+						<li>
+							We must convert the map of the town into a graph
+						</li>
+						<li>
+							Each intersection is translated into a node, and each road is translated into an edge
+						</li>
+						<li>
+							The distance of each road is used as the weight of each edge
+						</li>
+						<li>
+							The layout of the graph does not need to reflect the layout of the town, though we will use the same layout for simplicity
+						</li>
+					</ol>	
 
-				<ol>
-					<li>
-						We must convert the map of the town into a graph
-					</li>
-					<li>
-						Each intersection is translated into a node, and each road is translated into an edge
-					</li>
-					<li>
-						The distance of each road is used as the weight of each edge
-					</li>
-				</ol>
-
-				<iframe src="CyTests/3.html" frameborder="0"></iframe>
-				<iframe src="WebTests/fade.html" frameborder="0"></iframe>
+					<iframe src="Embeds/Town1GraphCreation.html" frameborder="0" style="flex: 1"></iframe>
+				</div>
 			</section>
 
 			<section style="grid-area: three">
 				<h2>The Fastest Route</h2>
-				<!-- 
-					include psuedocode for dijkstra's or a* algorithm
-					then show example of the fastest route
-				-->
 				<ol>
 					<li>
 						A* is popular, efficient, and easy to understand.
@@ -84,20 +83,12 @@
 				</ol>
 
 				<h3>Stepping Through A*</h3>
-				<p>
-					TODO: There should be a slideshow of images showing the steps, in diagram and table form - with captions
-				</p>
-				<iframe src="WebTests/slideshow.html" frameborder="0"></iframe>
+				<iframe src="Embeds/Town1Shortest.html" frameborder="0" style="
+				width: 100%; height: 25em;"></iframe>
 			</section>
 
 			<section style="grid-area: four">
 				<h2>Factoring in Risk</h2>
-				<!-- 
-					This is where we add in risk analysis
-					How do we calculate the risk?
-					Show the least risky route
-				-->
-
 				<ol>
 					<li>
 						To factor in the risk of the route, we can use the busyness of the areas on the map. We can assume that the busier an area is, the more likely it is that an accident will take place.
@@ -118,15 +109,17 @@
 			</section>
 
 			<section style="grid-area: five">
-				<h2>The Optimal Route</h2>
+				<h2>The Optimal Route, according to the algorithm</h2>
 				<p>
 					Now that we have a method of combining distance and risk into one value, we can use this to calculate the optimal route, using the same A* algorithm as previous.
 				</p>
 
-				<!-- TODO: what are appropriate risk multipliers? -->
-				<!-- maybe we could have an interactive demo with a slider to adjust the risk multipliers? -->
+				<figure>
+					<img src="img/Town1AStarRisk1,1.5,5.png">
+				</figure>
+
 				<p>
-					In this example, the risk multipliers were set to X, Y, and Z for the green, blue, and red areas respectively. This means that the risk of a road is multiplied by 2 if it borders a red area, 1.5 if it borders a blue area, and 1 if it borders a green area. This was found to be a good balance between speed and safety. The risk multipliers can be adjusted to prioritise speed or safety, as discussed in the previous section.
+					In this example, the risk multipliers were set to 1, 1.5, and 5 for green, blue, and red areas respectively. These numbers were chosen fairly arbitrarily. Ideally, time would be taken to compute the highest multipliers to steer the car away from the most dangerous areas, and the lowest multipliers to steer the car towards the safest areas. An optimal route would fall between these two extremes.
 				</p>
 			</section>
 

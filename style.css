@@ -182,3 +182,11 @@ article ol > li:nth-child(odd)::before {
 article ol > li:nth-child(even)::before {
 	color: var(--tertiary);
 }
+
+iframe {
+	width: 100%;
+}
+
+figure img {
+	width: 100%;
+}

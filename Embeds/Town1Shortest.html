@@ -1,0 +1,113 @@
+<!-- 
+	Shortest distance on town 1 with A*
+ -->
+<figure>
+	<ul>
+		<li class="frame" data-frame="0">
+			<div>
+				<img src="Town1Shortest/Graph(1).svg">
+
+				<p>Calculate values for each node connected to the start node</p>
+			</div>
+			
+			
+			<div>
+				<img src="Town1Shortest/Table.png">
+			</div>
+		</li>
+
+			<li class="frame" data-frame="1">
+				<div>
+					<img src="Town1Shortest/Graph(2).svg">
+					<p>Node <b>H</b> had the lowest <code>f</code> value (distance + heuristic), so we move on to <b>H</b> and mark <b>Start</b> as visited</p>			
+				</div>
+
+				<div>
+					<img src="Town1Shortest/Table1.png">
+				</div>
+			</li>
+
+			<li class="frame" data-frame="2">
+				<div>
+					<img src="Town1Shortest/Graph(3).svg">
+					<p>As before, we chose the node with the lowest <code>f</code>&mdash;<b>O</b> and calculate the values of its neighbours</p>			
+				</div>
+				
+				<div>
+					<img src="Town1Shortest/Table2.png">
+				</div>
+			</li>
+
+			<li class="frame" data-frame="3">
+				<div>
+					<img src="Town1Shortest/Graph(4).svg">
+					<p>We continue the process, moving onto <b>X</b></p>		
+				</div>
+				
+				<div>
+					<img src="Town1Shortest/Table3.png">
+				</div>
+			</li>
+
+			<li class="frame" data-frame="4">
+				<div>
+					<img src="Town1Shortest/Graph(5).svg">
+					<p>Now we are at the end node, we work backwards through the visited nodes, using the previous column. This is our shortest route.</p>
+				</div>
+				
+				<div>
+					<img src="Town1Shortest/Table4.png">
+				</div>
+			</li>
+		</ul>
+</figure>
+
+<style>
+	 @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap');
+
+	 * {
+		margin: 0;
+		padding: 0
+	 }
+	body {
+		font-family: "Atkinson Hyperlegible", sans-serif;
+		font-size: 1.2em;
+	}
+
+	figure ul li {
+		display: flex;
+	}
+
+	figure ul li div:first-of-type {
+		width: 60%;
+	}
+
+	figure ul li div:last-of-type {
+		width: 40%;
+	}
+
+	figure ul li div img {
+		width: 100%;
+	}
+</style>
+
+<script>
+	document.querySelectorAll("li.frame").forEach(frame => {
+		frame.style.display = "none";
+	});
+
+	let currentFrame = -1;
+	let frames = document.querySelectorAll("li.frame");
+
+	function nextFrame() {
+		try {
+			frames[currentFrame].style.display = "none";
+		} catch (e) {}
+		currentFrame = (currentFrame + 1) % frames.length;
+		frames[currentFrame].style.display = "flex";
+	}
+
+	nextFrame();
+
+	window.setInterval(nextFrame, 2500);
+</script>
