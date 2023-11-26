@@ -3,36 +3,25 @@
  -->
 <figure>
 	<ul>
-		<li class="frame" data-frame="0">
+		<li class="frame" data-frame="1">
 			<div>
-				<img src="Town1Shortest/Graph(1).svg">
+				<img src="Town1Shortest/Graph1.svg">
 
-				<p>Calculate values for each node connected to the start node</p>
+				<p>We calculate the values for each node connected to the <b>Start</b> node (<b>B</b>, <b>C</b>, <b>G</b>, <b>H</b>, <b>I</b>), by adding the distance value and the heuristic. Each of the connected nodes are marked as coming from the <b>Start</b> node.</p>
 			</div>
 			
 			
 			<div>
-				<img src="Town1Shortest/Table.png">
+				<img src="Town1Shortest/Table1.png">
 			</div>
 		</li>
 
-			<li class="frame" data-frame="1">
-				<div>
-					<img src="Town1Shortest/Graph(2).svg">
-					<p>Node <b>H</b> had the lowest <code>f</code> value (distance + heuristic), so we move on to <b>H</b> and mark <b>Start</b> as visited</p>			
-				</div>
-
-				<div>
-					<img src="Town1Shortest/Table1.png">
-				</div>
-			</li>
-
 			<li class="frame" data-frame="2">
 				<div>
-					<img src="Town1Shortest/Graph(3).svg">
-					<p>As before, we chose the node with the lowest <code>f</code>&mdash;<b>O</b> and calculate the values of its neighbours</p>			
+					<img src="Town1Shortest/Graph2.svg">
+					<p>Node <b>H</b> had the lowest <code>f</code> value (distance + heuristic), so we move on to <b>H</b> and mark <b>Start</b> as visited. The process repeats; we check the nodes connected to <b>H</b>, but ignore <b>Start</b> as it has already been visited.</p>			
 				</div>
-				
+
 				<div>
 					<img src="Town1Shortest/Table2.png">
 				</div>
@@ -40,8 +29,8 @@
 
 			<li class="frame" data-frame="3">
 				<div>
-					<img src="Town1Shortest/Graph(4).svg">
-					<p>We continue the process, moving onto <b>X</b></p>		
+					<img src="Town1Shortest/Graph3.svg">
+					<p>As before, we move onto <b>O</b> since it has the lowest <code>f</code> value, calculate the <code>f</code> values of its neighbours, and mark it as visited.</p>			
 				</div>
 				
 				<div>
@@ -51,12 +40,23 @@
 
 			<li class="frame" data-frame="4">
 				<div>
-					<img src="Town1Shortest/Graph(5).svg">
-					<p>Now we are at the end node, we work backwards through the visited nodes, using the previous column. This is our shortest route.</p>
+					<img src="Town1Shortest/Graph4.svg">
+					<p>We continue the process, moving onto <b>X</b></p>		
 				</div>
 				
 				<div>
 					<img src="Town1Shortest/Table4.png">
+				</div>
+			</li>
+
+			<li class="frame" data-frame="5">
+				<div>
+					<img src="Town1Shortest/Graph5.svg">
+					<p>Now we are at the end node, we work backwards from the <b>End</b> node, using the <code>Previous</code> column. This is our shortest route.</p>
+				</div>
+				
+				<div>
+					<img src="Town1Shortest/Table5.png">
 				</div>
 			</li>
 		</ul>
@@ -96,7 +96,7 @@
 		frame.style.display = "none";
 	});
 
-	let currentFrame = -1;
+	let currentFrame = 0;
 	let frames = document.querySelectorAll("li.frame");
 
 	function nextFrame() {
