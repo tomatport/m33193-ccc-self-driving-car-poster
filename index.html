@@ -19,127 +19,150 @@
 	</aside>
 
 	<main>
-		<header>
-			<h1 id="title">Designing an 'Ethical Engine' for a Self-Driving Car</h1>
-			<p class="subtitle" id="module">
-				<span class="module-id">M33193</span> <span class="module-name">Core Computing Concepts</span>&mdash;<span class="coursework">CW Item 1</span>
-			</p>
-			<p class="subtitle" id="author">
-				<span class="name">Thomas Robinson</span>
-				<span class="up-number">up2194485</span>
-			</p>
-		</header>
 		<article>
+			<section class="col">
+				<header class="step">
+					<h1 id="title">Designing an 'Ethical Engine' for a Self-Driving Car</h1>
+					<p class="subtitle" id="module">
+						<span class="module-id">M33193</span> <span class="module-name">Core Computing Concepts</span>&mdash;<span class="coursework">CW Item 1</span>
+					</p>
+					<p class="subtitle" id="author">
+						<span class="name">Thomas Robinson</span>
+						<span class="up-number">up2194485</span>
+					</p>
+				</header>
 
-			<section style="grid-area: one">
-				<h2>Introduction</h2>
-				<p>
-					The aim of this poster is to demonstrate the process of designing an 'ethical engine' for a self driving car,
-					utilising the concepts of graph theory, route finding algorithms, and applying ethical decision making to risk analysis.
-				</p>
-			</section>
 
-			<section style="grid-area: two">
-				<h2>Creating the Graph</h2>
-				<!--
-					image of the town, then image of simple graph
-					this should include the distance weightings
-				-->
-				<div style="display: flex;">
-					<ol style="flex: 2">
+				<!-- <section class="step">
+					<h2>Introduction</h2>
+					<p>
+						The aim of this poster is to demonstrate the process of designing an 'ethical engine' for a self driving car,
+						utilising the concepts of graph theory, route finding algorithms, and applying ethical decision making to risk analysis.
+					</p>
+				</section> -->
+
+				<section class="step">
+					<h2>Creating the Graph</h2>
+					<!--
+						image of the town, then image of simple graph
+						this should include the distance weightings
+					-->
+					<div style="display: flex;">
+						<ol style="flex: 2">
+							<li>
+								The map of the town must be converted into a graph
+							</li>
+							<li>
+								Each intersection is translated into a node, and each road is translated into an edge
+							</li>
+							<li>
+								The distance of each road is used as the weight of each edge
+							</li>
+							<li>
+								The layout of the graph does not need to reflect the layout of the town, though we will use the same layout for simplicity
+							</li>
+						</ol>	
+
+						<iframe src="Embeds/Town1GraphCreation.html" frameborder="0" style="flex: 1"></iframe>
+					</div>
+				</section>
+
+				<section class="step">
+					<h2>The Fastest Route</h2>
+					<ol>
 						<li>
-							We must convert the map of the town into a graph
+							A* is popular, efficient, and easy to understand.
 						</li>
 						<li>
-							Each intersection is translated into a node, and each road is translated into an edge
+							It may not always find the fastest route like Dijkstra's algorithm, is more efficient.
 						</li>
 						<li>
-							The distance of each road is used as the weight of each edge
+							The heuristic function is the straight-line distance to the destination node.
 						</li>
 						<li>
-							The layout of the graph does not need to reflect the layout of the town, though we will use the same layout for simplicity
+							Assume a constant speed is assumed, with no backtracking, and only run the algorithm once until the end is reached.
 						</li>
-					</ol>	
+					</ol>
 
-					<iframe src="Embeds/Town1GraphCreation.html" frameborder="0" style="flex: 1"></iframe>
-				</div>
+					<h3>Stepping Through A*</h3>
+					<iframe src="Embeds/Town1Shortest.html" frameborder="0" style="
+					width: 100%; height: 25rem;"></iframe>
+				</section>
 			</section>
 
-			<section style="grid-area: three">
-				<h2>The Fastest Route</h2>
-				<ol>
-					<li>
-						A* is popular, efficient, and easy to understand.
-					</li>
-					<li>
-						It may not always find the fastest route like Dijkstra's algorithm, is more efficient.
-					</li>
-					<li>
-						Our heuristic function is the straight-line distance to the destination node.
-					</li>
-					<li>
-						We assume a constant speed, with no backtracking. A more robust implementation would take into account speed limits and other factors.
-					</li>
-				</ol>
+			<section class="col">
+				<section class="step">
+					<h2>Factoring in Risk</h2>
+					<ol>
+						<li>
+							To factor in the risk of the route, the busyness of the areas on the map were used. It can be assumed that the busier an area is, the more likely it is that an accident will take place.
+						</li>
+						<li>
+							A risk value can be assigned to each area, and take the risk of the most dangerous area that the road borders. This is a utilitarianist approach, as it maximises the safety of the passengers and pedestrians using an objective method. 
+						</li>
+						<li>
+							An algorithm is unable to subscribe to deontological principles, as it is unable to make moral judgements. Defining deontological rules for the car to follow is infeasible, as it would be impossible to account for every possible scenario, and the ethics of every situation are inherently subjective. Virtue ethics would also require the car to have a 'moral compass,' which is not possible.
+						</li>
+						<li>
+							The risk value of each road can be converted into a numerical value, to use as a multiplier in the graph. The weight of each edge (road) on the graph is multiplied by the risk of the road, to give a new weight that takes into account both distance and risk. This new weight is then used by the A* algorithm to calculate the route.
+						</li>
+						<li>
+							The multipliers can be adjusted to prioritise risk over distance, or vice versa. For example, an emergency service vehicle would prioritise speed over safety, and therefore the risk multipliers would be lowered to prioritise distance. Other vehicles, such as a lorry carrying hazardous materials, or a coach full of passengers, would prioritise safety over speed, and therefore the risk multipliers would be increased to prioritise risk.
+						</li>
+					</ol>
+				</section>
 
-				<h3>Stepping Through A*</h3>
-				<iframe src="Embeds/Town1Shortest.html" frameborder="0" style="
-				width: 100%; height: 25em;"></iframe>
+				<section class="step">
+					<h2>The Optimal Route, Town 1</h2>
+					<p>
+						With a method of distilling distance and risk into one value, this can use this to calculate the optimal route, using the same A* algorithm as previous.
+					</p>
+
+					<figure style="width: 55%; margin: 0 auto;">
+						<img src="img/Town1AStarRisk1,2,4.png">
+					</figure>
+
+					<p>
+						Since blue is described as twice as busy (and therefore twice as risky) as gree, and red twice as busy as blue, the multipliers of 1, 2, and 4 were used.
+						This means that if a road borders a blue area, its weight is doubled, and if it borders a red area, its weight is quadrupled. As can be seen above, the path taken by the algorithm completely avoids the red area, and only enters a blue area momentarily.
+					</p>
+				</section>
 			</section>
 
-			<section style="grid-area: four">
-				<h2>Factoring in Risk</h2>
-				<ol>
-					<li>
-						To factor in the risk of the route, we can use the busyness of the areas on the map. We can assume that the busier an area is, the more likely it is that an accident will take place.
-					</li>
-					<li>
-						We can assign a risk value to each area, and take the risk of the most dangerous area that the road borders. This is a utilitarianist approach, as it maximises the safety of the passengers and pedestrians using an objective method. 
-					</li>
-					<li>
-						An algorithm is unable to subscribe to deontological principles, as it is unable to make moral judgements. Defining deontological rules for the car to follow is infeasible, as it would be impossible to account for every possible scenario, and the ethics of every situation are inherently subjective. Virtue ethics would also require the car to have a 'moral compass,' which is not possible.
-					</li>
-					<li>
-						We can convert the risk of each road into a numerical value, to use as a multiplier in the graph. The weight of each edge (road) on the graph is multiplied by the risk of the road, to give a new weight that takes into account both distance and risk. This new weight is then used by the A* algorithm to calculate the route.
-					</li>
-					<li>
-						The multipliers can be adjusted to prioritise risk over distance, or vice versa. For example, an emergency service vehicle would prioritise speed over safety, and therefore the risk multipliers would be lowered to prioritise distance. Other vehicles, such as a lorry carrying hazardous materials, or a coach full of passengers, would prioritise safety over speed, and therefore the risk multipliers would be increased to prioritise risk.
-					</li>
-				</ol>
-			</section>
 
-			<section style="grid-area: five">
-				<h2>The Optimal Route, Town 1</h2>
-				<p>
-					Now that we have a method of combining distance and risk into one value, we can use this to calculate the optimal route, using the same A* algorithm as previous.
-				</p>
+			<section class="col">
+				<section class="step">
+					<h2>Testing on Town 2</h2>
+					<!-- 
+						We need to test our algorithm on a new town
+					-->
 
-				<figure>
-					<img src="img/Town1AStarRisk1,1.5,5.png">
-				</figure>
+					<p>
+						Now that the algorithm has been tested on the initial town, we can ensure its generalisability by testing it on a new town.
+					</p>
 
-				<p>
-					Since it was stated that blue was twice as busy (and therefore twice as risky) as green, and red twice as busy as blue, I used the multipliers of 1, 2, and 4 respectively. This means that if the distance to a node via an edge that borders a red node is 10, the distance is multiplied by 4, and the distance to that node is now 40.
-				</p>
-			</section>
 
-			<section style="grid-area: six">
-				<h2>Testing on New Towns</h2>
-				<!-- 
-					We need to test our algorithm on a new town
-				-->
+					<p>
+						The steps of creating the graph, calculating the fastest route, and calculating the optimal route are repeated for Town 2.
+					</p>
 
-				<p>
-					Now that the algorithm has been tested on the initial town, we can ensure its generalisability by testing it on a new town.
-				</p>
+					<p>
+						As previously, the route calculated takes into account the distance and risk of each road, and the risk multipliers can be adjusted to prioritise speed or safety.
+					</p>
+				</section>
 
-				<p>
-					The steps of creating the graph, calculating the fastest route, and calculating the optimal route are repeated for Town 2.
-				</p>
+				<section class="step">
+					<h2>A Third Town</h2>
+					<p>This time, rather than using the towns provided, I have created by own town to test the algorithm on.</p>
 
-				<p>
-					As previously, the route calculated takes into account the distance and risk of each road, and the risk multipliers can be adjusted to prioritise speed or safety.
-				</p>
+					<p>The town I created is based on the real suburb of Bournville, in Birmingham, UK. The risk values were chosen based on the amenities within each area, to reflect a more realistic concentration of 'business.' Unlike the towns provided, this town has a more complex layout, and the areas of risk do not follow a simple pattern with red in the centre, blue in the middle, and green on the outskirts.</p>
+				</section>
+
+				<section class="step">
+					<h2>Conclusions &amp; Possible Improvements</h2>
+					<p>todo</p>
+				</section>
+
 			</section>
 		</article>
 	</main>
