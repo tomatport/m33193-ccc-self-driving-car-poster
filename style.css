@@ -9,7 +9,7 @@
 	--text: #000; /* text colour */
 	--section-bg: #fff3; /* background of sections */
 	--border: #fff; /* borders of sections */
-	--border-width: 0.2em; /* width of borders */
+	--border-width: 0.3vmin; /* width of borders */
 
 	--copy: "Atkinson Hyperlegible", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 	--code: "JetBrains Mono", "Courier New", Courier, monospace;
@@ -44,13 +44,9 @@ aside#background {
 
 /* header */
 header {
-	padding: 0.5rem;
-	margin: 0.5rem;
-
-	background-color: var(--section-bg);
-	border: var(--border-width) solid var(--border);
-
 	text-align: center;
+	
+	font-size: 1.5vmin;
 }
 
 header h1, header p {
@@ -76,6 +72,12 @@ header p.subtitle span.up-number {
 	font-family: monospace;
 }
 
+header p:last-of-type {
+	margin-top: 1em;
+	text-align: left;
+	font-size: 1.3vmin;
+}
+
 /* articles, sections */
 article {
 	/*
@@ -95,9 +97,9 @@ article > section.col {
 	flex: 1;
 }
 
-section.step {
-	padding: 0.5em;
-	margin: 0.5em;
+header, section.step {
+	padding: 1vmin;
+	margin: 1vmin;
 	background-color: var(--section-bg);
 	border: var(--border-width) solid var(--border);
 }
@@ -118,9 +120,9 @@ section.step h2:before {
 
 	/* please ignore the hacks below here */
 	font-family: var(--code);
-	font-size: 4em;
+	font-size: 2em;
 
-	margin-right: -2rem;
+	/* margin-right: -2rem; */
 	margin-bottom: -2rem;
 
 	opacity: 0.5;
@@ -170,7 +172,7 @@ ol > li::before {
   opacity: 0.5;
   z-index: -1;
   font-weight: bold;
-  filter: brightness(0.4);
+  filter: brightness(0.6);
 }
 
 ol > li:hover::before {
@@ -191,4 +193,96 @@ iframe {
 
 figure img {
 	width: 100%;
+}
+
+
+/* epic cycling frame things copied from iframe */
+figure.frames {
+	width: 100%;
+	margin: 0;
+}
+
+figure.frames ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+figure.frames ul li {
+	display: flex;
+}
+
+figure.frames div {
+	margin: 0.2rem;
+}
+
+figure.frames div:first-of-type {
+	flex: 2;
+}
+
+figure.frames div:last-of-type {
+	flex: 1;
+}
+
+figure.frames div img {
+	width: 100%;
+}
+
+/* fading thing copied from the iframe */
+figure#fading-thing {
+	position: relative;
+	text-align: center;
+	margin: 0;
+	flex: 1;
+}
+
+figure#fading-thing img {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+
+	opacity: 0;
+	
+	animation: fade 5s ease-in-out infinite;
+}
+
+figure#fading-thing img:nth-child(1) {
+	animation-delay: 0;
+}
+
+figure#fading-thing img:nth-child(2) {
+	animation-delay: 2.5s;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+/* janky images */
+figure.image {
+	width: 50%;
+	margin: 0 auto;
+}
+
+figure.image.split {
+	display: flex;
+	justify-content: stretch;
+	width: 100%;
+}
+
+figure.image.split figcaption {
+	width: 60%;
+	margin-left: 1em;
 }

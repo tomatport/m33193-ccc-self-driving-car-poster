@@ -30,16 +30,12 @@
 						<span class="name">Thomas Robinson</span>
 						<span class="up-number">up2194485</span>
 					</p>
-				</header>
 
-
-				<!-- <section class="step">
-					<h2>Introduction</h2>
 					<p>
-						The aim of this poster is to demonstrate the process of designing an 'ethical engine' for a self driving car,
+						This poster will demonstrate the process of designing an 'ethical engine' for a self driving car,
 						utilising the concepts of graph theory, route finding algorithms, and applying ethical decision making to risk analysis.
 					</p>
-				</section> -->
+				</header>
 
 				<section class="step">
 					<h2>Creating the Graph</h2>
@@ -63,7 +59,11 @@
 							</li>
 						</ol>	
 
-						<iframe src="Embeds/Town1GraphCreation.html" frameborder="0" style="flex: 1"></iframe>
+						<figure id="fading-thing">
+							<img src="img/Town1.png">
+
+							<img src="img/Town1Distances.png">
+						</figure>
 					</div>
 				</section>
 
@@ -74,19 +74,76 @@
 							A* is popular, efficient, and easy to understand.
 						</li>
 						<li>
-							It may not always find the fastest route like Dijkstra's algorithm, is more efficient.
+							It may not always find the fastest route like Dijkstra's algorithm, but is more efficient.
 						</li>
 						<li>
 							The heuristic function is the straight-line distance to the destination node.
 						</li>
 						<li>
-							Assume a constant speed is assumed, with no backtracking, and only run the algorithm once until the end is reached.
+							A constant speed is assumed, with no backtracking. The algorithm is ran once.
 						</li>
 					</ol>
 
-					<h3>Stepping Through A*</h3>
-					<iframe src="Embeds/Town1Shortest.html" frameborder="0" style="
-					width: 100%; height: 25rem;"></iframe>
+					<figure class="frames">
+						<ul>
+							<li class="frame" data-frame="1">
+								<div>
+									<img src="img/Town1ShortestFrames/Graph1.svg">
+
+									<p>We calculate the values for each node connected to the <b>Start</b> node (<b>B</b>, <b>C</b>, <b>G</b>, <b>H</b>, <b>I</b>), by adding the distance value and the heuristic. Each of the connected nodes are marked as coming from the <b>Start</b> node.</p>
+								</div>
+								
+								
+								<div>
+									<img src="img/Town1ShortestFrames/Table1.png">
+								</div>
+							</li>
+
+								<li class="frame" data-frame="2">
+									<div>
+										<img src="img/Town1ShortestFrames/Graph2.svg">
+										<p>Node <b>H</b> had the lowest <code>f</code> value (distance + heuristic), so we move on to <b>H</b> and mark <b>Start</b> as visited. The process repeats; we check the nodes connected to <b>H</b>, but ignore <b>Start</b> as it has already been visited.</p>			
+									</div>
+
+									<div>
+										<img src="img/Town1ShortestFrames/Table2.png">
+									</div>
+								</li>
+
+								<li class="frame" data-frame="3">
+									<div>
+										<img src="img/Town1ShortestFrames/Graph3.svg">
+										<p>As before, we move onto <b>O</b> since it has the lowest <code>f</code> value, calculate the <code>f</code> values of its neighbours, and mark it as visited.</p>			
+									</div>
+									
+									<div>
+										<img src="img/Town1ShortestFrames/Table3.png">
+									</div>
+								</li>
+
+								<li class="frame" data-frame="4">
+									<div>
+										<img src="img/Town1ShortestFrames/Graph4.svg">
+										<p>We continue the process, moving onto <b>X</b></p>		
+									</div>
+									
+									<div>
+										<img src="img/Town1ShortestFrames/Table4.png">
+									</div>
+								</li>
+
+								<li class="frame" data-frame="5">
+									<div>
+										<img src="img/Town1ShortestFrames/Graph5.svg">
+										<p>Now we are at the end node, we work backwards from the <b>End</b> node, using the <code>Previous</code> column. This is our shortest route.</p>
+									</div>
+									
+									<div>
+										<img src="img/Town1ShortestFrames/Table5.png">
+									</div>
+								</li>
+							</ul>
+					</figure>
 				</section>
 			</section>
 
@@ -114,18 +171,22 @@
 
 				<section class="step">
 					<h2>The Optimal Route, Town 1</h2>
-					<p>
-						With a method of distilling distance and risk into one value, this can use this to calculate the optimal route, using the same A* algorithm as previous.
-					</p>
 
-					<figure style="width: 55%; margin: 0 auto;">
+					<figure class="image split">
 						<img src="img/Town1AStarRisk1,2,4.png">
+
+						<figcaption>
+							<p>
+								With a method of distilling distance and risk into one value, this can use this to calculate the optimal route, using the same A* algorithm as previous.
+							</p>
+							<p>
+								Since blue is described as twice as busy (and therefore twice as risky) as gree, and red twice as busy as blue, the multipliers of 1, 2, and 4 were used.
+								This means that if a road borders a blue area, its weight is doubled, and if it borders a red area, its weight is quadrupled. As can be seen above, the path taken by the algorithm completely avoids the red area, and only enters a blue area momentarily.
+							</p>
+						</figcaption>
 					</figure>
 
-					<p>
-						Since blue is described as twice as busy (and therefore twice as risky) as gree, and red twice as busy as blue, the multipliers of 1, 2, and 4 were used.
-						This means that if a road borders a blue area, its weight is doubled, and if it borders a red area, its weight is quadrupled. As can be seen above, the path taken by the algorithm completely avoids the red area, and only enters a blue area momentarily.
-					</p>
+
 				</section>
 			</section>
 
@@ -137,34 +198,67 @@
 						We need to test our algorithm on a new town
 					-->
 
-					<p>
-						Now that the algorithm has been tested on the initial town, we can ensure its generalisability by testing it on a new town.
-					</p>
+					<figure class="image split">
+						<img src="img/Town2AStarRisk1,2,4.png">
 
+						<figcaption>
+							<p>
+								Now that the algorithm has been tested on the initial town, we can ensure its generalisability by testing it on a new town.
+							</p>
 
-					<p>
-						The steps of creating the graph, calculating the fastest route, and calculating the optimal route are repeated for Town 2.
-					</p>
+							<p>
+								The steps of creating the graph, calculating the fastest route, and calculating the optimal route are repeated for Town 2.
+							</p>
 
-					<p>
-						As previously, the route calculated takes into account the distance and risk of each road, and the risk multipliers can be adjusted to prioritise speed or safety.
-					</p>
+							<p>
+								As previously, the route calculated takes into account the distance and risk of each road, and the risk multipliers can be adjusted to prioritise speed or safety.
+							</p>
+						</figcaption>
+					</figure>
 				</section>
 
 				<section class="step">
 					<h2>A Third Town</h2>
-					<p>This time, rather than using the towns provided, I have created by own town to test the algorithm on.</p>
+					<figure class="image split">
+						<img src="img/BournvilleRisk1,2,4.png">
 
-					<p>The town I created is based on the real suburb of Bournville, in Birmingham, UK. The risk values were chosen based on the amenities within each area, to reflect a more realistic concentration of 'business.' Unlike the towns provided, this town has a more complex layout, and the areas of risk do not follow a simple pattern with red in the centre, blue in the middle, and green on the outskirts.</p>
+						<figcaption>
+							<p>This third town is based on the real suburb of Bournville, Birmingham. The risks for each area are based on the amenities within each area, to reflect a more realistic concentration of 'business.' Unlike the towns provided, this town has a more complex layout, and the areas of risk do not follow a simple pattern with red in the centre, blue in the middle, and green on the outskirts.</p>
+						</figcaption>
+					</figure>
 				</section>
 
 				<section class="step">
 					<h2>Conclusions &amp; Possible Improvements</h2>
-					<p>todo</p>
+					<ol>
+						<li>The algorithm, in avoiding busy areas, often spends significant time going further away from the end goal. A stronger heuristic would make it more likely to head more directly to the destination.</li>
+						<li></li>
+					</ol>
 				</section>
-
 			</section>
 		</article>
 	</main>
+
+	
+<script>
+	document.querySelectorAll("li.frame").forEach(frame => {
+		frame.style.display = "none";
+	});
+
+	let currentFrame = 0;
+	let frames = document.querySelectorAll("li.frame");
+
+	function nextFrame() {
+		try {
+			frames[currentFrame].style.display = "none";
+		} catch (e) {}
+		currentFrame = (currentFrame + 1) % frames.length;
+		frames[currentFrame].style.display = "flex";
+	}
+
+	nextFrame();
+
+	window.setInterval(nextFrame, 3000);
+</script>
 </body>
 </html>
