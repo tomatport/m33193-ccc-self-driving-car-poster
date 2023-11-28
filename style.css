@@ -7,7 +7,7 @@
 	--tertiary: #64ba9f;
 	
 	--text: #000; /* text colour */
-	--section-bg: #fff3; /* background of sections */
+	--section-bg: #fff7; /* background of sections */
 	--border: #fff; /* borders of sections */
 	--border-width: 0.3vmin; /* width of borders */
 
@@ -34,12 +34,23 @@ aside#background {
 	height: 100vh;
 	/* background */
 	background: var(--primary);
-	background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--tertiary) 100%); 
+
+	background: linear-gradient(320deg, var(--primary), var(--secondary), var(--tertiary));
+    background-size: 600% 600%;
+
+    animation: backgroundLoop 20s ease infinite;
+
 	color: var(--text);
 	z-index: -1;
 	/* filters */
-	filter: brightness(1.5);
-	opacity: 0.5;
+	filter: brightness(1.2);
+	opacity: 0.8;
+}
+
+@keyframes backgroundLoop {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
 /* header */
@@ -99,14 +110,17 @@ article > section.col {
 
 header, section.step {
 	padding: 1vmin;
-	margin: 1vmin;
+	margin: 0.5vmin;
 	background-color: var(--section-bg);
 	border: var(--border-width) solid var(--border);
+	border-radius: 0.5vmin;
+	box-shadow: 0.5vmin 0.5vmin 0.5vmin #0003;
 }
 
 /* section headings */
 section.step h2 {
 	margin: 0;
+	margin-bottom: 0.25rem;
 	border-bottom: var(--border-width) solid var(--border);
 	cursor: default;
 }
@@ -118,17 +132,17 @@ section.step h2:before {
 	content: counter(heading);
 	counter-increment: heading;
 
-	/* please ignore the hacks below here */
 	font-family: var(--code);
 	font-size: 2em;
 
-	/* margin-right: -2rem; */
+	margin-right: 0.5rem;
 	margin-bottom: -2rem;
 
-	opacity: 0.5;
+	opacity: 0.8;
+
+	filter: brightness(0.5);
 
 	z-index: -1;
-	/* you can look again now, rich */
 
 	transition: opacity 0.5s ease-in-out;
 }
@@ -189,6 +203,10 @@ ol > li:nth-child(even)::before {
 
 iframe {
 	width: 100%;
+}
+
+img {
+	border-radius: 0.5vmin;
 }
 
 figure img {
@@ -272,17 +290,39 @@ figure#fading-thing img:nth-child(2) {
 
 /* janky images */
 figure.image {
-	width: 50%;
+	width: 100%;
 	margin: 0 auto;
+}
+
+figure.image img {
+	width: 60%;
+	margin: 0 auto;
+}
+
+figure.image div {
+	text-align: center;
 }
 
 figure.image.split {
 	display: flex;
-	justify-content: stretch;
+	justify-content: center;
 	width: 100%;
 }
 
+figure.image.split div {
+	flex: 3;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+figure.image.split div img {
+	width: 100%;
+	filter: contrast(1.2) saturate(4);
+}
+
 figure.image.split figcaption {
-	width: 60%;
+	flex: 2;
 	margin-left: 1em;
 }

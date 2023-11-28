@@ -32,13 +32,13 @@
 					</p>
 
 					<p>
-						This poster will demonstrate the process of designing an 'ethical engine' for a self driving car,
-						utilising the concepts of graph theory, route finding algorithms, and applying ethical decision making to risk analysis.
+						This poster will describe the process of designing an 'ethical engine' for a self-driving car,
+						utilising the concepts of graph theory, path-finding algorithms, and applying ethical decision-making to risk analysis.
 					</p>
 				</header>
 
 				<section class="step">
-					<h2>Creating the Graph</h2>
+					<h2>Creating a Graph</h2>
 					<!--
 						image of the town, then image of simple graph
 						this should include the distance weightings
@@ -68,19 +68,19 @@
 				</section>
 
 				<section class="step">
-					<h2>The Fastest Route</h2>
+					<h2>The Fastest Route, with A*</h2>
 					<ol>
 						<li>
 							A* is popular, efficient, and easy to understand.
 						</li>
 						<li>
-							It may not always find the fastest route like Dijkstra's algorithm, but is more efficient.
+							It may not always find the fastest route like Dijkstra's algorithm but is more efficient.
 						</li>
 						<li>
 							The heuristic function is the straight-line distance to the destination node.
 						</li>
 						<li>
-							A constant speed is assumed, with no backtracking. The algorithm is ran once.
+							A constant speed is assumed, with no backtracking. The algorithm is run once.
 						</li>
 					</ol>
 
@@ -90,7 +90,7 @@
 								<div>
 									<img src="img/Town1ShortestFrames/Graph1.svg">
 
-									<p>We calculate the values for each node connected to the <b>Start</b> node (<b>B</b>, <b>C</b>, <b>G</b>, <b>H</b>, <b>I</b>), by adding the distance value and the heuristic. Each of the connected nodes are marked as coming from the <b>Start</b> node.</p>
+									<p>The values of <code>g</code> (distance from the previous node) and <code>h</code> (distance to <b>End</b>&mdash;the heuristic) are calculated for each node connected to <b>Start</b>. The <code>f</code> value is the sum of <code>g</code> and <code>h</code>. The node with the lowest <code>f</code> value is chosen, and the process repeats. The <code>Previous</code> column is used to keep track of the path taken.
 								</div>
 								
 								
@@ -102,7 +102,7 @@
 								<li class="frame" data-frame="2">
 									<div>
 										<img src="img/Town1ShortestFrames/Graph2.svg">
-										<p>Node <b>H</b> had the lowest <code>f</code> value (distance + heuristic), so we move on to <b>H</b> and mark <b>Start</b> as visited. The process repeats; we check the nodes connected to <b>H</b>, but ignore <b>Start</b> as it has already been visited.</p>			
+										<p>Node <b>H</b> has the lowest <code>f</code> value (distance + heuristic), so we move on to <b>H</b> and mark <b>Start</b> as visited. The process repeats; the nodes connected to <b>H</b> are looked at, ignoring <b>Start</b> as it has already been visited.</p>			
 									</div>
 
 									<div>
@@ -113,7 +113,7 @@
 								<li class="frame" data-frame="3">
 									<div>
 										<img src="img/Town1ShortestFrames/Graph3.svg">
-										<p>As before, we move onto <b>O</b> since it has the lowest <code>f</code> value, calculate the <code>f</code> values of its neighbours, and mark it as visited.</p>			
+										<p>As before, the algorithm moves onto <b>O</b> since it has the lowest <code>f</code> value. It is marked as visited, and its neighbours are inspected.</p>			
 									</div>
 									
 									<div>
@@ -135,7 +135,7 @@
 								<li class="frame" data-frame="5">
 									<div>
 										<img src="img/Town1ShortestFrames/Graph5.svg">
-										<p>Now we are at the end node, we work backwards from the <b>End</b> node, using the <code>Previous</code> column. This is our shortest route.</p>
+										<p>Now we are at the destination node (<b>End</b>), we work backwards, using the <code>Previous</code> column to generate our path. This is our shortest route.</p>
 									</div>
 									
 									<div>
@@ -149,22 +149,22 @@
 
 			<section class="col">
 				<section class="step">
-					<h2>Factoring in Risk</h2>
+					<h2>Factoring in Risk &amp; Ethics</h2>
 					<ol>
 						<li>
-							To factor in the risk of the route, the busyness of the areas on the map were used. It can be assumed that the busier an area is, the more likely it is that an accident will take place.
+							To factor in the risk of the route, the busyness of the areas on the map was used. It can be assumed that the busier an area is, the more likely it is that an accident will take place.
 						</li>
 						<li>
-							A risk value can be assigned to each area, and take the risk of the most dangerous area that the road borders. This is a utilitarianist approach, as it maximises the safety of the passengers and pedestrians using an objective method. 
+							A risk value can be assigned to each area, based on its level of busyness. Each road will recieve the risk value of the riskiest area bordering the road. For example, if a road borders a red area on one side, and a green area on the other, the road will take on the risk value associated with the red area. This is a utilitarianist approach, as it maximises the safety of the passengers and pedestrians using an objective method. 
 						</li>
 						<li>
 							An algorithm is unable to subscribe to deontological principles, as it is unable to make moral judgements. Defining deontological rules for the car to follow is infeasible, as it would be impossible to account for every possible scenario, and the ethics of every situation are inherently subjective. Virtue ethics would also require the car to have a 'moral compass,' which is not possible.
 						</li>
 						<li>
-							The risk value of each road can be converted into a numerical value, to use as a multiplier in the graph. The weight of each edge (road) on the graph is multiplied by the risk of the road, to give a new weight that takes into account both distance and risk. This new weight is then used by the A* algorithm to calculate the route.
+							The risk value of each road can be a numerical value, to use as a multiplier to the distances on the graph. The weight of each edge (road) on the graph is multiplied by the risk of the road, to give a new weight that takes into account both distance and risk. This new weight is then used by the A* algorithm to calculate the route.
 						</li>
 						<li>
-							The multipliers can be adjusted to prioritise risk over distance, or vice versa. For example, an emergency service vehicle would prioritise speed over safety, and therefore the risk multipliers would be lowered to prioritise distance. Other vehicles, such as a lorry carrying hazardous materials, or a coach full of passengers, would prioritise safety over speed, and therefore the risk multipliers would be increased to prioritise risk.
+							The multipliers can be adjusted to prioritise risk over distance, or vice versa. For example, an emergency service vehicle would prioritise speed over safety, and therefore the risk multipliers would be lowered to prioritise distance. Other vehicles, such as a lorry carrying hazardous materials, or a coach full of passengers, would prioritise safety over speed, and therefore the risk multipliers would be increased to prioritise avoiding busy areas.
 						</li>
 					</ol>
 				</section>
@@ -172,16 +172,18 @@
 				<section class="step">
 					<h2>The Optimal Route, Town 1</h2>
 
-					<figure class="image split">
-						<img src="img/Town1AStarRisk1,2,4.png">
+					<figure class="image">
+						<div>
+							<img src="img/Town1AStarRisk1,2,4.png">
+						</div>
 
 						<figcaption>
 							<p>
-								With a method of distilling distance and risk into one value, this can use this to calculate the optimal route, using the same A* algorithm as previous.
+								With a method of distilling distance and risk into one value, the optimal route can be calculated using the same A* process as described previously.
 							</p>
 							<p>
-								Since blue is described as twice as busy (and therefore twice as risky) as gree, and red twice as busy as blue, the multipliers of 1, 2, and 4 were used.
-								This means that if a road borders a blue area, its weight is doubled, and if it borders a red area, its weight is quadrupled. As can be seen above, the path taken by the algorithm completely avoids the red area, and only enters a blue area momentarily.
+								Since blue is described as twice as busy (and therefore twice as risky) as green, and red twice as busy as blue, the multipliers of 1, 2, and 4 were used.
+								This means that if a road borders a blue area, its weight is doubled, and if it borders a red area, its weight is quadrupled. As can be seen above, the path taken by the algorithm completely avoids the red area and only enters a blue area momentarily.
 							</p>
 						</figcaption>
 					</figure>
@@ -199,31 +201,35 @@
 					-->
 
 					<figure class="image split">
-						<img src="img/Town2AStarRisk1,2,4.png">
+						<div>
+							<img src="img/Town2AStarRisk1,2,4.png">
+						</div>
 
 						<figcaption>
 							<p>
-								Now that the algorithm has been tested on the initial town, we can ensure its generalisability by testing it on a new town.
+								Now that the algorithm has been tested on the initial town, its generalisability can be ensured by testing it on a new town.
 							</p>
 
 							<p>
-								The steps of creating the graph, calculating the fastest route, and calculating the optimal route are repeated for Town 2.
-							</p>
-
-							<p>
-								As previously, the route calculated takes into account the distance and risk of each road, and the risk multipliers can be adjusted to prioritise speed or safety.
+								As previously, the route calculated takes into account the distance and risk of each road, and the risk multipliers can be adjusted to prioritise speed or safety. In this case, the algorithm was unable to avoid the red areas, as once the algorithm only has the choice between high-risk roads, it is unable to avoid them without backtracking.
 							</p>
 						</figcaption>
 					</figure>
 				</section>
 
 				<section class="step">
-					<h2>A Third Town</h2>
-					<figure class="image split">
-						<img src="img/BournvilleRisk1,2,4.png">
+					<h2>Testing on a Third Town</h2>
+					<figure class="image">
+						<div>
+							<img src="img/BournvilleRisk1,2,4.png">
+						</div>
 
 						<figcaption>
-							<p>This third town is based on the real suburb of Bournville, Birmingham. The risks for each area are based on the amenities within each area, to reflect a more realistic concentration of 'business.' Unlike the towns provided, this town has a more complex layout, and the areas of risk do not follow a simple pattern with red in the centre, blue in the middle, and green on the outskirts.</p>
+							<p>
+								This third town is based on the real suburb of Bournville, Birmingham. The risks for each area are based on the amenities within each area, to reflect a more realistic concentration of 'busyness.' Unlike the towns provided, this town has a more complex layout, and the areas of risk do not follow a simple pattern with red in the centre, blue in the middle, and green on the outskirts.</p>
+							<p>
+								The algorithm choses an interesting route. Since it cannot see beyond the next node, it is unable to avoid several roads bordering red areas.
+							</p>
 						</figcaption>
 					</figure>
 				</section>
@@ -231,8 +237,8 @@
 				<section class="step">
 					<h2>Conclusions &amp; Possible Improvements</h2>
 					<ol>
-						<li>The algorithm, in avoiding busy areas, often spends significant time going further away from the end goal. A stronger heuristic would make it more likely to head more directly to the destination.</li>
-						<li></li>
+						<li>The algorithm, in avoiding busy areas, often spends significant time going away from the end goal, rather than towards it. This is particularly seen in Towns 1 and 3. A stronger heuristic would make it more likely to head more directly to the destination.</li>
+						<li>If the algorithm were allowed to step backwards when encountering a choice between only high-risk options&mdash;or check multiple steps ahead to avoid this situation&mdash;much of the meandering would be subdued.</li>
 					</ol>
 				</section>
 			</section>
