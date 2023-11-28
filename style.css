@@ -1,3 +1,9 @@
+/* 
+	this CSS is worse than the HTML. please don't look at it.
+	i promise i can do things correctly, dr rich
+	- tom
+*/
+
 :root {
 	/* these variables should have prefixes like colour- and font- but meh */
 
@@ -207,6 +213,7 @@ iframe {
 
 img {
 	border-radius: 0.5vmin;
+	filter: contrast(1.2) saturate(4);
 }
 
 figure img {
@@ -319,7 +326,6 @@ figure.image.split div {
 
 figure.image.split div img {
 	width: 100%;
-	filter: contrast(1.2) saturate(4);
 }
 
 figure.image.split figcaption {
