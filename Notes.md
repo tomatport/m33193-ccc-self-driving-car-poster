@@ -33,8 +33,8 @@
 ## Town 2
 | Route Type       | Distance |   R |   B |   G | Notes                                      |
 |------------------|----------|-----|-----|-----|--------------------------------------------|
-| Fastest Route    |     1543 | 100%|  0% |  0% |                                            |
-| Optimal Route    |     2103 |  44%| 29% | 27% | 36% more distance (slower), spends more than half the time in non-red zones |
+| Fastest Route    |     1543 |  49%| 51% |  0% |                                            |
+| Optimal Route    |     2103 |  44%| 29% | 27% | 36% more distance, but spends less time in red and blue zones |
 
 ## Town 3
 | Route Type       | Distance |   R |   B |   G | Notes                                      |
