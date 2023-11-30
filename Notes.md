@@ -25,19 +25,19 @@
 - it is stated that green is half blue, and blue is half red - so if we assume business directly correlates to risk, multipliers must have the ratio of 1:2:4 (G:B:R) 
 
 ## Town 1
-| Route Type       | Distance |   R |   B |   G | Notes                                      |
-|------------------|----------|-----|-----|-----|--------------------------------------------|
-| Fastest Route    |      938 | 100%|  0% |  0% |                                            |
-| Optimal Route    |     2091 |   0%| 15% | 85% | 44% more distance (slower), but totally avoids red zones, and only in blue for 15%. |
+| Path       | Dist |   R |   B |   G | Notes                                      |
+|:-----------|-----:|----:|----:|----:|:-------------------------------------------|
+| Fastest    |   938 | 100%|  0% |  0% |                                            |
+| Optimal    |  2091 |   0%| 15% | 85% | 44% more dist (slower), but totally avoids red zones, and only in blue for 15%. |
 
 ## Town 2
-| Route Type       | Distance |   R |   B |   G | Notes                                      |
-|------------------|----------|-----|-----|-----|--------------------------------------------|
-| Fastest Route    |     1543 |  49%| 51% |  0% |                                            |
-| Optimal Route    |     2103 |  44%| 29% | 27% | 36% more distance, but spends less time in red and blue zones |
+| Path       | Dist |   R |   B |   G | Notes                                      |
+|:-----------|-----:|----:|----:|----:|:-------------------------------------------|
+| Fastest    |  1543 | 49% | 51% |  0% |                                            |
+| Optimal    |  2103 | 44% | 29% | 27% | 36% more dist, but spends less time in red and blue zones |
 
 ## Town 3
-| Route Type       | Distance |   R |   B |   G | Notes                                      |
-|------------------|----------|-----|-----|-----|--------------------------------------------|
-| Fastest Route    |   todo   | todo| todo| todo|                                            |
-| Optimal Route    |     2678 |  39%| 33% | 28% | more than half the time in non-red zones    |
+| Path       | Dist |   R |   B |   G | Notes                                      |
+|:-----------|-----:|----:|----:|----:|:-------------------------------------------|
+| Fastest    | todo | todo| todo| todo|                                            |
+| Optimal    |  2678 |  39%| 33% | 28% | more than half the time in non-red zones   |
