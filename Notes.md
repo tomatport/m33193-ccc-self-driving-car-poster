@@ -14,9 +14,16 @@
 	- but then how do you measure harm/benefit - what about old/young people, social status, profession?
 	- in an ideal world, more thinking and consideration would be taken into account, with a hybrid of ethical theories and their benefits
 
-
 # re: ethics
 - real-world pathfinding algos and scenarios (google maps) pathfinding do not prescribe ethics nor take into account risk, only giving options to the user such as "avoid motorways" and etc
+
+
+# ethical theory notes
+[link to notes](https://github.com/tomatport/notes/blob/master/2023-09-14%20WS1%20Ethics.md)
+
+# cba/rba notes
+[link to notes](https://github.com/tomatport/notes/blob/master/2023-09-25%20Cost-Benefit%20%26%20Risk-Benefit%20Analaysis.md)
+
 
 # MATHS
 - lower risk multipliers would decrease distance, but likely increase time spent bordering riskier zones
